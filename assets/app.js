@@ -47,8 +47,21 @@
   $$("a[href='hub.html']").forEach((link) => {
     if (link.textContent.trim() === "Kutz Hub") link.textContent = "Hub";
   });
+  $$("a[href='results.html']").forEach((link) => {
+    if (link.textContent.trim() === "Results") link.textContent = "Photos";
+  });
   $$("#mobileMenu a[href='quote.html']").forEach((link) => { link.textContent = "Quote"; });
   $$("#mobileMenu a[href='booking.html']").forEach((link) => { link.textContent = "Book"; });
+  [[$(".nav-links"), true], [$("#mobileMenu"), false], ...$$(".footer-nav").map((nav) => [nav, false])].forEach(([nav, isMain]) => {
+    if (!nav || $("a[href='contact.html']", nav)) return;
+    const link = document.createElement("a");
+    link.href = "contact.html";
+    link.textContent = "Help";
+    if (isMain) link.dataset.nav = "";
+    const hubLink = $("a[href='hub.html']", nav);
+    if (hubLink) nav.insertBefore(link, hubLink);
+    else nav.appendChild(link);
+  });
   $$("[data-nav]").forEach((link) => {
     if (link.getAttribute("href") === currentPage) link.classList.add("active");
   });
@@ -65,7 +78,7 @@
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
-  const importantWords = /\b(short|easy|clear|fair|safe|work|job|jobs|book|booking|mow|mows|mowing|cut|cuts|lawn|lawns|grass|edge|edges|price|quote|quotes|agree|agreed|gate|gates|dog|dogs|address|service|services|tidy|clean|regular|visit|visits|gear|Kawiti|clippings|steps|ready)\b/gi;
+  const importantWords = /\b(short|easy|clear|fair|safe|work|job|jobs|book|booking|help|message|photo|photos|mow|mows|mowing|cut|cuts|lawn|lawns|grass|edge|edges|price|quote|quotes|agree|agreed|gate|gates|dog|dogs|address|service|services|tidy|clean|regular|visit|visits|gear|Kawiti|clippings|steps|ready)\b/gi;
   const highlightImportantWords = (root = document) => {
     const paragraphs = root.matches?.("p") ? [root] : $$("p", root);
     paragraphs.forEach((paragraph) => {
@@ -97,6 +110,126 @@
     });
   };
   highlightImportantWords();
+
+  const grassCanvas = $("#grassCanvas");
+  if (grassCanvas) {
+    const context = grassCanvas.getContext("2d");
+    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let blades = [];
+    let frame = 0;
+    let pointer = { x: -1000, y: -1000, active: false, moved: 0 };
+    let touchStart = null;
+    let touchMode = null;
+    let touchOnGrass = false;
+
+    const makeBlades = () => {
+      const box = grassCanvas.getBoundingClientRect();
+      const width = Math.max(320, Math.round(box.width));
+      const height = Math.max(240, Math.round(box.height));
+      const ratio = Math.min(devicePixelRatio || 1, 2);
+      grassCanvas.width = Math.round(width * ratio);
+      grassCanvas.height = Math.round(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      const mask = document.createElement("canvas");
+      mask.width = width;
+      mask.height = height;
+      const pen = mask.getContext("2d", { willReadFrequently: true });
+      pen.fillStyle = "#fff";
+      pen.textAlign = "center";
+      pen.textBaseline = "middle";
+      pen.font = `900 ${width < 650 ? Math.min(82, width / 4.7) : Math.min(172, width / 8.1)}px Manrope, Arial, sans-serif`;
+      if (width < 650) {
+        pen.fillText("KAWITI", width / 2, height * 0.38);
+        pen.fillText("MOWS", width / 2, height * 0.68);
+      } else {
+        pen.fillText("KAWITI MOWS", width / 2, height / 2);
+      }
+      const pixels = pen.getImageData(0, 0, width, height).data;
+      const gap = width < 650 ? 6 : 8;
+      blades = [];
+      for (let y = gap; y < height; y += gap) {
+        for (let x = gap; x < width; x += gap) {
+          if (pixels[(y * width + x) * 4 + 3] > 80) {
+            blades.push({ x, y, sway: Math.random() * Math.PI * 2, size: 4 + Math.random() * 3.5 });
+          }
+        }
+      }
+      drawGrass(performance.now());
+    };
+
+    const drawGrass = (now) => {
+      const box = grassCanvas.getBoundingClientRect();
+      context.clearRect(0, 0, box.width, box.height);
+      context.lineCap = "round";
+      const livePointer = pointer.active && now - pointer.moved < 850;
+      blades.forEach((blade) => {
+        const dx = blade.x - pointer.x;
+        const dy = blade.y - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        const push = livePointer ? Math.max(0, 1 - distance / 105) : 0;
+        const breeze = still ? 0 : Math.sin(now * 0.0015 + blade.sway) * 0.08;
+        const lean = breeze + Math.sign(dx || 1) * push * 1.15;
+        const angle = -Math.PI / 2 + lean;
+        const length = blade.size + push * 6;
+        context.beginPath();
+        context.moveTo(blade.x, blade.y);
+        context.lineTo(blade.x + Math.cos(angle) * length, blade.y + Math.sin(angle) * length);
+        context.strokeStyle = push > 0.1 ? "#b7ff75" : "#58d909";
+        context.lineWidth = push > 0.1 ? 2.2 : 1.5;
+        context.shadowColor = "rgba(88,217,9,.72)";
+        context.shadowBlur = push > 0.1 ? 10 : 4;
+        context.stroke();
+        context.shadowBlur = 0;
+        context.beginPath();
+        context.arc(blade.x, blade.y, push > 0.1 ? 1.8 : 1.2, 0, Math.PI * 2);
+        context.fillStyle = push > 0.1 ? "#e3ffc9" : "#7aec35";
+        context.fill();
+      });
+      if (!still) frame = requestAnimationFrame(drawGrass);
+    };
+
+    const movePointer = (clientX, clientY) => {
+      const box = grassCanvas.getBoundingClientRect();
+      pointer = { x: clientX - box.left, y: clientY - box.top, active: true, moved: performance.now() };
+      if (still) drawGrass(performance.now());
+    };
+    const isNearGrass = (clientX, clientY) => {
+      const box = grassCanvas.getBoundingClientRect();
+      const x = clientX - box.left;
+      const y = clientY - box.top;
+      return blades.some((blade) => Math.hypot(blade.x - x, blade.y - y) < 20);
+    };
+    grassCanvas.addEventListener("pointermove", (event) => movePointer(event.clientX, event.clientY));
+    grassCanvas.addEventListener("pointerdown", (event) => movePointer(event.clientX, event.clientY));
+    grassCanvas.addEventListener("pointerleave", () => { pointer.active = false; });
+    grassCanvas.addEventListener("touchstart", (event) => {
+      const touch = event.touches[0];
+      touchStart = touch ? { x: touch.clientX, y: touch.clientY } : null;
+      touchMode = null;
+      touchOnGrass = Boolean(touch && isNearGrass(touch.clientX, touch.clientY));
+    }, { passive: true });
+    grassCanvas.addEventListener("touchmove", (event) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      if (touchStart) {
+        const dx = touch.clientX - touchStart.x;
+        const dy = touch.clientY - touchStart.y;
+        if (!touchMode && Math.hypot(dx, dy) > 7) touchMode = Math.abs(dx) > Math.abs(dy) ? "horizontal" : "vertical";
+        if (touchOnGrass && touchMode === "horizontal") event.preventDefault();
+      }
+      movePointer(touch.clientX, touch.clientY);
+    }, { passive: false });
+    const endTouch = () => { touchStart = null; touchMode = null; touchOnGrass = false; pointer.active = false; };
+    grassCanvas.addEventListener("touchend", endTouch, { passive: true });
+    grassCanvas.addEventListener("touchcancel", endTouch, { passive: true });
+    addEventListener("resize", () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(window.__khardzGrassResize);
+      window.__khardzGrassResize = setTimeout(makeBlades, 120);
+    }, { passive: true });
+    makeBlades();
+  }
 
   const revealNodes = $$(".reveal");
   if ("IntersectionObserver" in window) {
@@ -360,6 +493,7 @@
           dogsSecured: byId("dogAck").checked,
           hazards: byId("hazards").value.trim()
         },
+        photoPermission: byId("photoPermission").checked,
         pricing: "Price agreed before work"
       };
       localStorage.setItem("khardz_booking", JSON.stringify(booking));
@@ -396,6 +530,7 @@
       $("#hubAddress").textContent = [booking.location.street, booking.location.suburb, booking.location.region].filter(Boolean).join(", ");
       $("#hubServices").textContent = [...booking.services, ...booking.addOns].join(", ") || "No services saved";
       $("#hubDate").textContent = booking.preferredDate || "To be arranged";
+      $("#hubPhotos").textContent = booking.photoPermission ? "Yes" : "No";
     }
 
     $("#advanceStatus")?.addEventListener("click", () => {
@@ -411,5 +546,50 @@
       toast("Demo reset.");
     });
     drawHub();
+  }
+
+  const helpForm = $("#helpForm");
+  if (helpForm) {
+    const savedBooking = JSON.parse(localStorage.getItem("khardz_booking") || "null");
+    if (savedBooking?.customer) {
+      $("#helpName").value = savedBooking.customer.fullName || savedBooking.customer.firstName || "";
+      $("#helpPhone").value = savedBooking.customer.phone || "";
+    }
+    const buildHelpMessage = () => {
+      const note = $("#helpNote").value.trim();
+      return [
+        "Hi Kawiti, I need help booking a lawn cut.",
+        `Name: ${$("#helpName").value.trim()}`,
+        `Mobile: ${$("#helpPhone").value.trim()}`,
+        note ? `Help needed: ${note}` : "Please contact me and we can take it from there."
+      ].join("\n");
+    };
+    const copyHelpMessage = async () => {
+      const message = $("#helpMessage").value;
+      try {
+        await navigator.clipboard.writeText(message);
+        toast("Message copied.");
+      } catch {
+        $("#helpMessage").focus();
+        $("#helpMessage").select();
+        document.execCommand("copy");
+        toast("Message copied.");
+      }
+    };
+    helpForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!helpForm.reportValidity()) return;
+      const message = buildHelpMessage();
+      $("#helpMessage").value = message;
+      $("#helpOutput").hidden = false;
+      if (!navigator.share) return copyHelpMessage();
+      try {
+        await navigator.share({ title: "Khardz Kutz booking help", text: message });
+        toast("Message shared.");
+      } catch (error) {
+        if (error.name !== "AbortError") toast("Message ready below.");
+      }
+    });
+    $("#copyHelp")?.addEventListener("click", copyHelpMessage);
   }
 })();

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#07110b"><meta name="description" content="Get simple booking help from Khardz Kutz n' Co.">
+  <title>Booking Help | Khardz Kutz n' Co.</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a><div class="scroll-progress" id="scrollProgress"></div><div class="topline">You grow. We mow.</div>
+  <header class="site-header"><div class="container"><nav class="nav-shell" aria-label="Main navigation"><a class="brand" href="index.html" aria-label="Khardz Kutz home"><img class="brand-logo" src="assets/khardz-logo.webp" alt="Khardz Cutz n' Co. — You grow it, we mow it"></a><div class="nav-links"><a data-nav href="index.html">Home</a><a data-nav href="services.html">Services</a><a data-nav href="quote.html">Quote</a><a data-nav href="results.html">Photos</a><a data-nav href="about.html">About</a><a data-nav href="contact.html">Help</a><a data-nav href="hub.html">Hub</a></div><div class="nav-actions"><button class="icon-button" id="themeButton" type="button" aria-label="Use light theme"><span class="theme-icon"></span></button><a class="button button-primary desktop-cta" href="booking.html">Book a cut</a><button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><i></i><i></i><i></i></button></div></nav><div class="mobile-menu" id="mobileMenu"><a href="index.html">Home</a><a href="services.html">Services</a><a href="quote.html">Quote</a><a href="results.html">Photos</a><a href="about.html">About</a><a href="contact.html">Help</a><a href="hub.html">Hub</a><a href="booking.html">Book</a></div></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container reveal"><div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Help</span></div><span class="eyebrow">Booking help</span><h1>Need help?<br><span class="word-glow">We’ll take it from here.</span></h1><p class="lead">Send Kawiti your name and number.</p></div></section>
+    <section class="section section-topless"><div class="container contact-layout">
+      <form class="card form-card contact-form reveal" id="helpForm">
+        <span class="eyebrow">Contact us</span><h2 class="heading-compact">Keep it short.</h2>
+        <div class="field"><label for="helpName">Your name <span class="required">Required</span></label><input id="helpName" name="helpName" type="text" autocomplete="name" required placeholder="Your name"></div>
+        <div class="field"><label for="helpPhone">Mobile <span class="required">Required</span></label><input id="helpPhone" name="helpPhone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="021 ..."></div>
+        <div class="field"><label for="helpNote">What is wrong? <span class="optional">Optional</span></label><textarea id="helpNote" name="helpNote" placeholder="I need help booking..."></textarea></div>
+        <button class="button button-primary full" type="submit">Send help message</button>
+        <div class="help-output" id="helpOutput" hidden><label for="helpMessage">Your message</label><textarea id="helpMessage" readonly></textarea><button class="button button-secondary full" id="copyHelp" type="button">Copy message</button></div>
+      </form>
+      <aside class="card contact-side reveal"><span class="eyebrow">How it works</span><h2 class="heading-compact">Three easy steps.</h2><ol class="simple-steps"><li><strong>1</strong><span>Add your name and number.</span></li><li><strong>2</strong><span>Tap send.</span></li><li><strong>3</strong><span>Choose Kawiti on your phone.</span></li></ol><div class="notice">Your phone’s share menu will open. If it cannot, copy the message.</div><a class="button button-secondary full mt-22" href="booking.html">Back to booking</a></aside>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-main"><div><span class="eyebrow">Khardz Kutz n' Co.</span><h3>You grow. We mow.</h3></div><nav class="footer-nav" aria-label="Footer navigation"><a href="services.html">Services</a><a href="quote.html">Quote</a><a href="booking.html">Book</a><a href="results.html">Photos</a><a href="contact.html">Help</a><a href="about.html">About</a><a href="hub.html">Hub</a></nav></div><div class="container footer-bottom"><span>&copy; <span id="year"></span> Khardz Kutz.</span><span>Price agreed first.</span></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div><script src="assets/app.js" defer></script>
+</body></html>

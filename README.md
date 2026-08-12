@@ -11,8 +11,9 @@ The current visual system is built directly from the supplied Khardz logo: black
 - `index.html` — premium homepage and interactive Kutz selector
 - `services.html` — service levels, add-ons, comparison and policies
 - `quote.html` — workload-based scope builder without fake fixed pricing
-- `booking.html` — multi-step request with required location and safety details
-- `results.html` — supplied before/after mower graphic and finish standards
+- `booking.html` — multi-step request, photo permission, location and safety details
+- `results.html` — before-and-after page with interactive mower graphic and photo wall
+- `contact.html` — short booking-help form with Android sharing and copy fallback
 - `about.html` — Kawiti and the Khardz Kutz brand story
 - `hub.html` — device-local booking dashboard demo
 - `404.html` — custom missing-page experience
@@ -27,6 +28,7 @@ The current visual system is built directly from the supplied Khardz logo: black
 - Conditional access and dog-safety booking fields
 - Booking-completion meter and device-local request dashboard
 - Responsive navigation, theme switching, progress feedback and touch-first controls
+- Interactive “Kawiti Mows” grass-dot sign with cursor and swipe response
 
 ## Booking rules included
 
@@ -36,6 +38,7 @@ The current visual system is built directly from the supplied Khardz logo: black
 - Gate, preferred entrance and restricted-area notes become required when relevant.
 - Dogs must be declared and securely contained away from the work area.
 - Customers acknowledge property safety, access and negotiated-pricing policies.
+- Customers may optionally allow before-and-after lawn photos on the website.
 - Pricing is negotiated around lawn size, access, slope, growth, clipping removal and workload.
 
 ## GitHub Pages
