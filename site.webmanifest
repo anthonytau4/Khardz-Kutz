@@ -1,0 +1,9 @@
+{
+  "name": "Khardz Kutz n' Co.",
+  "short_name": "Khardz Kutz",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#07110b",
+  "theme_color": "#b9ff45",
+  "icons": []
+}
