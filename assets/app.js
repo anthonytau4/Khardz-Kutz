@@ -75,6 +75,64 @@
     revealNodes.forEach((node) => node.classList.add("is-visible"));
   }
 
+  const activateWithKeyboard = (node, action) => {
+    node.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        action();
+      }
+    });
+  };
+
+  const servicePanels = $$(".service-card");
+  const savedService = localStorage.getItem("khardz_package");
+  const chooseService = (panel, announce = true) => {
+    const name = $("h3", panel)?.textContent.trim();
+    if (!name) return;
+    servicePanels.forEach((item) => {
+      item.classList.remove("is-chosen");
+      item.setAttribute("aria-pressed", "false");
+      $(".panel-state", item)?.remove();
+    });
+    panel.classList.add("is-chosen");
+    panel.setAttribute("aria-pressed", "true");
+    const state = document.createElement("span");
+    state.className = "panel-state";
+    state.textContent = "Selected";
+    panel.appendChild(state);
+    localStorage.setItem("khardz_package", name);
+    if (announce) toast(`${name} selected for your booking.`);
+  };
+  servicePanels.forEach((panel) => {
+    panel.tabIndex = 0;
+    panel.setAttribute("role", "button");
+    panel.setAttribute("aria-pressed", "false");
+    panel.setAttribute("aria-label", `Select ${$("h3", panel)?.textContent.trim() || "service"}`);
+    panel.addEventListener("click", () => chooseService(panel));
+    activateWithKeyboard(panel, () => chooseService(panel));
+    if (savedService && $("h3", panel)?.textContent.trim() === savedService) chooseService(panel, false);
+  });
+
+  $$(".feature-card, .process-card, .policy-card, .value-card").forEach((panel) => {
+    panel.tabIndex = 0;
+    panel.setAttribute("role", "button");
+    panel.setAttribute("aria-pressed", "false");
+    const toggle = () => {
+      const active = panel.classList.toggle("is-inspected");
+      panel.setAttribute("aria-pressed", String(active));
+    };
+    panel.addEventListener("click", toggle);
+    activateWithKeyboard(panel, toggle);
+  });
+
+  const resultRange = $("#resultRange");
+  const resultFeature = $("#resultFeature");
+  if (resultRange && resultFeature) {
+    const updateResultScan = () => resultFeature.style.setProperty("--scan", `${resultRange.value}%`);
+    resultRange.addEventListener("input", updateResultScan);
+    updateResultScan();
+  }
+
   const tips = [
     "Clean edges are the difference between mowed and properly finished.",
     "Long grass often needs multiple passes for an even result.",

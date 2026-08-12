@@ -4,6 +4,8 @@
 
 A fully responsive static website for Kawiti's lawn-mowing service, designed for GitHub Pages.
 
+The current visual system is built directly from the supplied Khardz logo: black, white, graphite and high-energy mower green. Rounded floating cards have been replaced by sharp, connected, edge-to-edge modules on desktop and mobile.
+
 ## Pages
 
 - `index.html` — premium homepage and interactive Kutz selector
@@ -14,6 +16,17 @@ A fully responsive static website for Kawiti's lawn-mowing service, designed for
 - `about.html` — Kawiti and the Khardz Kutz brand story
 - `hub.html` — device-local booking dashboard demo
 - `404.html` — custom missing-page experience
+
+## Interactive polish
+
+- Full Khardz logo in the navigation
+- Selectable service overview panels that feed into booking
+- Pin-highlightable information panels with keyboard support
+- Draggable results scan
+- Live workload and service recommendation builder
+- Conditional access and dog-safety booking fields
+- Booking-completion meter and device-local request dashboard
+- Responsive navigation, theme switching, progress feedback and touch-first controls
 
 ## Booking rules included
 
