@@ -95,6 +95,17 @@ button { color: inherit; }
 .grid { display: grid; gap: 20px; }
 .muted { color: var(--muted); }
 .accent { color: var(--lime); }
+.word-glow {
+  display: inline-block;
+  color: var(--lime);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.08em;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  text-shadow: 0 0 10px rgba(185, 255, 69, 0.68), 0 0 28px rgba(73, 214, 109, 0.34);
+}
+[data-theme="light"] .word-glow { color: #2f9700; text-shadow: 0 0 10px rgba(75, 189, 9, 0.24); }
 .center { text-align: center; }
 .stack { display: grid; gap: 16px; }
 .full { width: 100%; }

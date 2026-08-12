@@ -9,12 +9,12 @@
   <header class="site-header"><div class="container"><nav class="nav-shell" aria-label="Main navigation"><a class="brand" href="index.html" aria-label="Khardz Kutz home"><img class="brand-logo" src="assets/khardz-logo.webp" alt="Khardz Cutz n' Co. — You grow it, we mow it"></a><div class="nav-links"><a data-nav href="index.html">Home</a><a data-nav href="services.html">Services</a><a data-nav href="quote.html">Quote</a><a data-nav href="results.html">Results</a><a data-nav href="about.html">About</a><a data-nav href="hub.html">Kutz Hub</a></div><div class="nav-actions"><button class="icon-button" id="themeButton" type="button" aria-label="Use light theme"><span class="theme-icon"></span></button><a class="button button-primary desktop-cta active" href="booking.html">Book a cut</a><button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><i></i><i></i><i></i></button></div></nav><div class="mobile-menu" id="mobileMenu"><a href="index.html">Home</a><a href="services.html">Services</a><a href="quote.html">Get a quote</a><a href="results.html">Results</a><a href="about.html">About</a><a href="hub.html">Kutz Hub</a><a href="booking.html">Book a cut</a></div></div></header>
 
   <main id="main">
-    <section class="page-hero"><div class="container reveal"><div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Book a cut</span></div><span class="eyebrow">Professional booking request</span><h1>Tell us the job.<br><span class="accent">We'll sort the lawn.</span></h1><p class="lead">A complete request gives Kawiti the location, service scope and safety information needed to discuss the job properly. Pricing is agreed before work begins.</p></div></section>
+    <section class="page-hero"><div class="container reveal"><div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Book</span></div><span class="eyebrow">Book a cut</span><h1>Tell us.<br><span class="accent">We <span class="word-glow">mow</span> it.</span></h1><p class="lead">Fill this in. Kawiti will agree the price with you.</p></div></section>
 
     <section class="section section-topless"><div class="container booking-layout">
       <form class="booking-form" id="bookingForm" novalidate>
         <section class="card form-section reveal" aria-labelledby="contactTitle">
-          <div class="form-section-title"><span class="form-step">1</span><div><h3 id="contactTitle">Your details</h3><p>Who should Kawiti contact about the lawn?</p></div></div>
+          <div class="form-section-title"><span class="form-step">1</span><div><h3 id="contactTitle">Your name</h3><p>How can we reach you?</p></div></div>
           <div class="form-grid">
             <div class="field"><label for="firstName">First name <span class="required">Required</span></label><input id="firstName" name="firstName" type="text" autocomplete="given-name" required placeholder="First name"></div>
             <div class="field"><label for="middleName">Middle name <span class="optional">Optional</span></label><input id="middleName" name="middleName" type="text" autocomplete="additional-name" placeholder="Middle name"></div>
@@ -25,68 +25,68 @@
         </section>
 
         <section class="card form-section reveal" aria-labelledby="locationTitle">
-          <div class="form-section-title"><span class="form-step">2</span><div><h3 id="locationTitle">Service location</h3><p>A complete written address is required before the request can be saved.</p></div></div>
+          <div class="form-section-title"><span class="form-step">2</span><div><h3 id="locationTitle">Your address</h3><p>Where is the lawn?</p></div></div>
           <div class="form-grid">
             <div class="field span-2"><label for="street">Street address <span class="required">Required</span></label><input id="street" name="street" type="text" autocomplete="address-line1" required placeholder="12 Example Street"></div>
             <div class="field"><label for="suburb">Suburb or town <span class="required">Required</span></label><input id="suburb" name="suburb" type="text" autocomplete="address-level2" required placeholder="Suburb or town"></div>
             <div class="field"><label for="postcode">Postcode <span class="optional">Optional</span></label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="5028"></div>
             <div class="field span-2"><label for="region">City or region <span class="required">Required</span></label><input id="region" name="region" type="text" autocomplete="address-level1" required placeholder="City or region"></div>
           </div>
-          <button class="button button-secondary" type="button" id="locationButton">Add current location pin</button>
-          <p class="helper location-helper" id="locationStatus">The pin is optional and never replaces the required address.</p>
+          <button class="button button-secondary" type="button" id="locationButton">Use my location</button>
+          <p class="helper location-helper" id="locationStatus">Optional. Address is still needed.</p>
         </section>
 
         <section class="card form-section reveal" aria-labelledby="servicesTitle">
-          <div class="form-section-title"><span class="form-step">3</span><div><h3 id="servicesTitle">Services wanted</h3><p>Select at least one main service. You can choose more than one if the property has different areas.</p></div></div>
-          <span class="field-label">Main mowing services <span class="required">Choose at least one</span></span>
+          <div class="form-section-title"><span class="form-step">3</span><div><h3 id="servicesTitle">Pick a service</h3><p>Pick one or more.</p></div></div>
+          <span class="field-label">Main service <span class="required">Pick one</span></span>
           <div class="check-grid check-space">
-            <label class="check-card"><input class="main-service" type="checkbox" value="Quick Kutz"><span><strong>Quick Kutz</strong><small>Maintained lawn mowing and a basic clean finish.</small></span></label>
-            <label class="check-card"><input class="main-service" type="checkbox" value="Full Kutz"><span><strong>Full Kutz</strong><small>Mow, weedwhacking, detailed edges and tidy.</small></span></label>
-            <label class="check-card"><input class="main-service" type="checkbox" value="Jungle Kutz"><span><strong>Jungle Kutz</strong><small>Long or heavily overgrown grass requiring extra work.</small></span></label>
+            <label class="check-card"><input class="main-service" type="checkbox" value="Quick Kutz"><span><strong>Quick Kutz</strong><small>Mow a tidy lawn.</small></span></label>
+            <label class="check-card"><input class="main-service" type="checkbox" value="Full Kutz"><span><strong>Full Kutz</strong><small>Mow, edges and tidy.</small></span></label>
+            <label class="check-card"><input class="main-service" type="checkbox" value="Jungle Kutz"><span><strong>Jungle Kutz</strong><small>Cut long, thick grass.</small></span></label>
           </div>
-          <span class="field-label">Optional add-ons</span>
+          <span class="field-label">Extras <span class="optional">Optional</span></span>
           <div class="check-grid check-space-tight">
-            <label class="check-card"><input class="addon-service" type="checkbox" value="Clipping removal"><span><strong>Clipping removal</strong><small>Remove loose clippings where practical.</small></span></label>
-            <label class="check-card"><input class="addon-service" type="checkbox" value="Extra edge detailing"><span><strong>Extra edge detailing</strong><small>More time around paths, borders and fence lines.</small></span></label>
-            <label class="check-card"><input class="addon-service" type="checkbox" value="Regular route"><span><strong>Regular route</strong><small>Discuss an ongoing maintenance schedule.</small></span></label>
+            <label class="check-card"><input class="addon-service" type="checkbox" value="Clipping removal"><span><strong>Take clippings</strong><small>Remove loose grass.</small></span></label>
+            <label class="check-card"><input class="addon-service" type="checkbox" value="Extra edge detailing"><span><strong>Extra edges</strong><small>Paths, gardens and fences.</small></span></label>
+            <label class="check-card"><input class="addon-service" type="checkbox" value="Regular route"><span><strong>Regular cuts</strong><small>Come back often.</small></span></label>
           </div>
-          <div class="field"><label for="preferredDate">Preferred day <span class="optional">Optional</span></label><input id="preferredDate" name="preferredDate" type="date"><span class="helper">This is a preference, not a confirmed appointment.</span></div>
+          <div class="field"><label for="preferredDate">Best day <span class="optional">Optional</span></label><input id="preferredDate" name="preferredDate" type="date"><span class="helper">We will confirm the day.</span></div>
         </section>
 
         <section class="card form-section reveal" aria-labelledby="accessTitle">
-          <div class="form-section-title"><span class="form-step">4</span><div><h3 id="accessTitle">Property access and pets</h3><p>Tell Kawiti where to enter, where not to go and how to work safely.</p></div></div>
-          <div class="field"><label for="accessType">Gate and access situation</label><select id="accessType" name="accessType"><option value="standard">Standard access — no special instructions</option><option value="preferred">Use a preferred gate or entrance</option><option value="restricted">There are areas not to enter</option><option value="both">Preferred entrance and restricted areas</option></select></div>
-          <div class="field conditional" id="accessNotesWrap"><label for="accessNotes">Required access notes <span class="required">Required</span></label><textarea id="accessNotes" name="accessNotes" placeholder="Which gate or entrance should Kawiti use? How is it accessed? Which parts of the property must not be entered?"></textarea><span class="helper">Include both preferred access and restricted areas where relevant.</span></div>
-          <div class="field"><label for="dogs">Are there dogs on the property?</label><select id="dogs" name="dogs"><option value="no">No dogs on the property</option><option value="yes">Yes — dogs will be securely contained</option></select></div>
-          <label class="check-card conditional" id="dogAckWrap"><input id="dogAck" type="checkbox"><span><strong>Dog safety acknowledgement</strong><small>I will lock or securely contain all dogs away from the work area before Kawiti arrives and keep them contained while mowing is underway.</small></span></label>
-          <div class="field mt-18"><label for="hazards">Hazards, fragile items or extra property notes <span class="optional">Optional</span></label><textarea id="hazards" name="hazards" placeholder="Steep areas, hidden objects, sprinkler heads, fragile garden features, parking notes or anything else Kawiti should know."></textarea></div>
+          <div class="form-section-title"><span class="form-step">4</span><div><h3 id="accessTitle">Gates and dogs</h3><p>Help Kawiti work safely.</p></div></div>
+          <div class="field"><label for="accessType">Which gate?</label><select id="accessType" name="accessType"><option value="standard">Any gate is fine</option><option value="preferred">Use one gate</option><option value="restricted">Do not enter some areas</option><option value="both">Use one gate and avoid areas</option></select></div>
+          <div class="field conditional" id="accessNotesWrap"><label for="accessNotes">Gate notes <span class="required">Required</span></label><textarea id="accessNotes" name="accessNotes" placeholder="Which gate? Where should Kawiti not go?"></textarea><span class="helper">Keep it clear and short.</span></div>
+          <div class="field"><label for="dogs">Any dogs?</label><select id="dogs" name="dogs"><option value="no">No dogs</option><option value="yes">Yes</option></select></div>
+          <label class="check-card conditional" id="dogAckWrap"><input id="dogAck" type="checkbox"><span><strong>I will lock the dogs away</strong><small>Keep dogs away while Kawiti works.</small></span></label>
+          <div class="field mt-18"><label for="hazards">Other notes <span class="optional">Optional</span></label><textarea id="hazards" name="hazards" placeholder="Slopes, hidden items, sprinklers or anything fragile."></textarea></div>
         </section>
 
         <section class="card form-section reveal" aria-labelledby="policiesTitle">
-          <div class="form-section-title"><span class="form-step">5</span><div><h3 id="policiesTitle">Service policies</h3><p>Confirm these details before saving the request.</p></div></div>
-          <label class="policy-check"><input id="policyAccess" type="checkbox"><span>I have provided any relevant gate, preferred entrance and restricted-area instructions.</span></label>
-          <label class="policy-check"><input id="policySafety" type="checkbox"><span>I will clear obvious objects from the lawn and securely contain all dogs and pets away from the work area.</span></label>
-          <label class="policy-check"><input id="policyPrice" type="checkbox"><span>I understand the final price is negotiated and agreed before any work begins.</span></label>
+          <div class="form-section-title"><span class="form-step">5</span><div><h3 id="policiesTitle">Agree</h3><p>Tick all three.</p></div></div>
+          <label class="policy-check"><input id="policyAccess" type="checkbox"><span>My gate notes are correct.</span></label>
+          <label class="policy-check"><input id="policySafety" type="checkbox"><span>The lawn is clear. Dogs are locked away.</span></label>
+          <label class="policy-check"><input id="policyPrice" type="checkbox"><span>We will agree the price before work.</span></label>
         </section>
 
         <section class="card form-section reveal">
-          <div class="notice">This static website saves the request on this device for the Kutz Hub preview. It does not yet send the request to Kawiti or reserve an appointment.</div>
-          <button class="button button-primary full" id="submitBooking" type="submit" disabled>Complete required details</button>
-          <p class="form-error" id="bookingError">Check the required details highlighted in the readiness panel.</p>
+          <div class="notice">Demo only. This does not send yet.</div>
+          <button class="button button-primary full" id="submitBooking" type="submit" disabled>Finish the steps</button>
+          <p class="form-error" id="bookingError">Please fill in the missing parts.</p>
         </section>
       </form>
 
       <aside class="card readiness reveal" aria-label="Booking readiness">
-        <span class="eyebrow">Request readiness</span><h3>Nearly mower-ready.</h3>
+        <span class="eyebrow">Ready?</span><h3>Finish all five.</h3>
         <div class="readiness-ring" id="readinessRing"><strong id="readinessPercent">0%</strong></div>
         <div class="ready-list">
-          <div class="ready-item" id="ready-contact"><span>Contact details</span><b>Missing</b></div><div class="ready-item" id="ready-location"><span>Service location</span><b>Missing</b></div><div class="ready-item" id="ready-services"><span>Selected services</span><b>Missing</b></div><div class="ready-item" id="ready-access"><span>Access and pets</span><b>Missing</b></div><div class="ready-item" id="ready-policies"><span>Policy agreement</span><b>Missing</b></div>
-        </div><p class="helper">The submit button unlocks only when every required section is complete.</p>
+          <div class="ready-item" id="ready-contact"><span>Name</span><b>Missing</b></div><div class="ready-item" id="ready-location"><span>Address</span><b>Missing</b></div><div class="ready-item" id="ready-services"><span>Service</span><b>Missing</b></div><div class="ready-item" id="ready-access"><span>Gates and dogs</span><b>Missing</b></div><div class="ready-item" id="ready-policies"><span>Agree</span><b>Missing</b></div>
+        </div><p class="helper">Finish each part to continue.</p>
       </aside>
     </div></section>
   </main>
 
-  <dialog class="modal" id="bookingModal"><div class="modal-inner"><span class="modal-mark">KK</span><h2 class="heading-compact">Request saved, <span id="savedCustomerName">there</span>.</h2><p class="muted">Your details are stored on this device and are now visible in the Kutz Hub demo. No appointment has been sent or confirmed yet.</p><div class="modal-actions"><a class="button button-primary" href="hub.html">Open Kutz Hub</a><form method="dialog"><button class="button button-secondary" type="submit">Keep editing</button></form></div></div></dialog>
-  <footer class="site-footer"><div class="container footer-main"><div><span class="eyebrow">Khardz Kutz n' Co.</span><h3>You grow. We mow. Kawiti handles the rest.</h3></div><nav class="footer-nav" aria-label="Footer navigation"><a href="services.html">Services</a><a href="quote.html">Build a quote</a><a href="booking.html">Book a cut</a><a href="results.html">Results</a><a href="about.html">About</a><a href="hub.html">Kutz Hub</a></nav></div><div class="container footer-bottom"><span>&copy; <span id="year"></span> Khardz Kutz Incorporated.</span><span>Pricing is negotiated and agreed before work begins.</span></div></footer>
+  <dialog class="modal" id="bookingModal"><div class="modal-inner"><span class="modal-mark">KK</span><h2 class="heading-compact">Saved, <span id="savedCustomerName">there</span>.</h2><p class="muted">Saved on this phone. Nothing was sent.</p><div class="modal-actions"><a class="button button-primary" href="hub.html">Open Hub</a><form method="dialog"><button class="button button-secondary" type="submit">Edit</button></form></div></div></dialog>
+  <footer class="site-footer"><div class="container footer-main"><div><span class="eyebrow">Khardz Kutz n' Co.</span><h3>You grow. We mow.</h3></div><nav class="footer-nav" aria-label="Footer navigation"><a href="services.html">Services</a><a href="quote.html">Quote</a><a href="booking.html">Book</a><a href="results.html">Results</a><a href="about.html">About</a><a href="hub.html">Hub</a></nav></div><div class="container footer-bottom"><span>&copy; <span id="year"></span> Khardz Kutz.</span><span>Price agreed first.</span></div></footer>
   <div class="toast" id="toast" role="status" aria-live="polite"></div><script src="assets/app.js" defer></script>
 </body></html>

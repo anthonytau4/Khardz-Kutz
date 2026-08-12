@@ -44,6 +44,11 @@
   }));
 
   const currentPage = location.pathname.split("/").pop() || "index.html";
+  $$("a[href='hub.html']").forEach((link) => {
+    if (link.textContent.trim() === "Kutz Hub") link.textContent = "Hub";
+  });
+  $$("#mobileMenu a[href='quote.html']").forEach((link) => { link.textContent = "Quote"; });
+  $$("#mobileMenu a[href='booking.html']").forEach((link) => { link.textContent = "Book"; });
   $$("[data-nav]").forEach((link) => {
     if (link.getAttribute("href") === currentPage) link.classList.add("active");
   });
@@ -59,6 +64,39 @@
 
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
+
+  const importantWords = /\b(short|easy|clear|fair|safe|work|job|jobs|book|booking|mow|mows|mowing|cut|cuts|lawn|lawns|grass|edge|edges|price|quote|quotes|agree|agreed|gate|gates|dog|dogs|address|service|services|tidy|clean|regular|visit|visits|gear|Kawiti|clippings|steps|ready)\b/gi;
+  const highlightImportantWords = (root = document) => {
+    const paragraphs = root.matches?.("p") ? [root] : $$("p", root);
+    paragraphs.forEach((paragraph) => {
+      const walker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (!node.nodeValue.trim() || node.parentElement.closest(".word-glow")) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach((node) => {
+        importantWords.lastIndex = 0;
+        if (!importantWords.test(node.nodeValue)) return;
+        importantWords.lastIndex = 0;
+        const fragment = document.createDocumentFragment();
+        let cursor = 0;
+        for (const match of node.nodeValue.matchAll(importantWords)) {
+          fragment.append(node.nodeValue.slice(cursor, match.index));
+          const mark = document.createElement("span");
+          mark.className = "word-glow";
+          mark.textContent = match[0];
+          fragment.append(mark);
+          cursor = match.index + match[0].length;
+        }
+        fragment.append(node.nodeValue.slice(cursor));
+        node.replaceWith(fragment);
+      });
+    });
+  };
+  highlightImportantWords();
 
   const revealNodes = $$(".reveal");
   if ("IntersectionObserver" in window) {
@@ -101,7 +139,7 @@
     state.textContent = "Selected";
     panel.appendChild(state);
     localStorage.setItem("khardz_package", name);
-    if (announce) toast(`${name} selected for your booking.`);
+    if (announce) toast(`${name} selected.`);
   };
   servicePanels.forEach((panel) => {
     panel.tabIndex = 0;
@@ -134,15 +172,16 @@
   }
 
   const tips = [
-    "Clean edges are the difference between mowed and properly finished.",
-    "Long grass often needs multiple passes for an even result.",
-    "A regular route keeps the job quicker, tidier and easier to quote.",
-    "Hidden toys and garden tools are undefeated mower enemies.",
-    "Gate notes save time and keep the work exactly where you want it."
+    "Clean edges make a lawn look done.",
+    "Long grass may need more than one cut.",
+    "Regular cuts keep the lawn tidy.",
+    "Move toys and tools before we mow.",
+    "Gate notes help us find the lawn."
   ];
   $("#newHomeTip")?.addEventListener("click", () => {
     const output = $("#homeTip");
     output.textContent = tips[Math.floor(Math.random() * tips.length)];
+    highlightImportantWords(output);
   });
 
   const chaosButtons = $$("[data-chaos]");
@@ -158,6 +197,7 @@
     if (meter) meter.style.width = `${score}%`;
     if (scoreNode) scoreNode.textContent = `${score}`;
     if (result) result.innerHTML = `<strong>${packageName}</strong><span>${copy}</span>`;
+    if (result) highlightImportantWords(result);
     localStorage.setItem("khardz_package", packageName);
   }));
 
@@ -176,7 +216,7 @@
       workload = Math.min(100, workload);
       const edges = $("#extraEdges")?.checked;
       const packageName = conditionValue >= 34 ? "Jungle Kutz" : edges ? "Full Kutz" : "Quick Kutz";
-      const tone = workload > 76 ? "Heavy workload" : workload > 48 ? "Moderate workload" : "Straightforward workload";
+      const tone = workload > 76 ? "Big job" : workload > 48 ? "Medium job" : "Small job";
 
       $("#sizeValue").textContent = sizeNames[sizeValue];
       $("#workloadScore").textContent = `${workload}`;
@@ -200,7 +240,7 @@
     [size, condition, ...extras].forEach((field) => field.addEventListener("input", calculateQuote));
     $("#saveScope")?.addEventListener("click", () => {
       localStorage.setItem("khardz_scope", JSON.stringify(calculateQuote()));
-      toast("Job scope saved on this device.");
+      toast("Quote details saved.");
     });
     calculateQuote();
   }
@@ -256,7 +296,7 @@
         row.querySelector("b").textContent = okay ? "Ready" : "Missing";
       });
       byId("submitBooking").disabled = !allReady;
-      byId("submitBooking").textContent = allReady ? "Save booking request" : "Complete required details";
+      byId("submitBooking").textContent = allReady ? "Save booking" : "Finish the steps";
       return allReady;
     };
 
@@ -264,10 +304,10 @@
     bookingForm.addEventListener("change", validate);
     byId("locationButton")?.addEventListener("click", () => {
       if (!navigator.geolocation) {
-        toast("Location pinning is not available on this device.");
+        toast("Location is not available here.");
         return;
       }
-      byId("locationButton").textContent = "Finding location...";
+      byId("locationButton").textContent = "Finding you...";
       navigator.geolocation.getCurrentPosition((position) => {
         const pin = {
           lat: position.coords.latitude,
@@ -275,12 +315,13 @@
           accuracy: Math.round(position.coords.accuracy)
         };
         localStorage.setItem("khardz_location_pin", JSON.stringify(pin));
-        byId("locationStatus").textContent = `Location pin added (within about ${pin.accuracy} m). Your written address is still required.`;
-        byId("locationButton").textContent = "Refresh location pin";
-        toast("Location pin added.");
+        byId("locationStatus").textContent = `Pin added. About ${pin.accuracy} m close. Address still needed.`;
+        highlightImportantWords(byId("locationStatus"));
+        byId("locationButton").textContent = "Update location";
+        toast("Location added.");
       }, () => {
-        byId("locationButton").textContent = "Add current location pin";
-        toast("Location permission was not available. Enter the address manually.");
+        byId("locationButton").textContent = "Add my location";
+        toast("Add your address instead.");
       }, { enableHighAccuracy: true, timeout: 9000 });
     });
 
@@ -319,7 +360,7 @@
           dogsSecured: byId("dogAck").checked,
           hazards: byId("hazards").value.trim()
         },
-        pricing: "To be negotiated and agreed before work begins"
+        pricing: "Price agreed before work"
       };
       localStorage.setItem("khardz_booking", JSON.stringify(booking));
       localStorage.setItem("khardz_status", "0");
@@ -334,7 +375,7 @@
   if (hubRoot) {
     const booking = JSON.parse(localStorage.getItem("khardz_booking") || "null");
     let status = Number(localStorage.getItem("khardz_status") || 0);
-    const labels = ["Request saved", "Quote agreed", "Visit scheduled", "Cut complete"];
+    const labels = ["Booking saved", "Price agreed", "Day set", "Cut done"];
     const rows = $$(".status-row");
 
     const drawHub = () => {
@@ -367,7 +408,7 @@
       status = 0;
       localStorage.setItem("khardz_status", "0");
       drawHub();
-      toast("Demo status reset.");
+      toast("Demo reset.");
     });
     drawHub();
   }
